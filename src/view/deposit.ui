@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Deposit</class>
+ <widget class="QDialog" name="Deposit">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>638</width>
+    <height>763</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>638</width>
+    <height>763</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>638</width>
+    <height>763</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #202020;</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>602</width>
+     <height>714</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_10">
+      <item>
+       <widget class="QLabel" name="lb_date">
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Начало срока:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="de_begin_date">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QDateEdit{
+  border: 1px solid white;
+  color: white;
+  font-family: Arial;
+  font-size: 14pt;
+  font-weight: 600;
+  margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="dateTime">
+         <datetime>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>2023</year>
+          <month>1</month>
+          <day>1</day>
+         </datetime>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="lb_deposit_sum">
+        <property name="font">
+         <font>
+          <family>Arioal</family>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Общая сумма вклада, руб:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="ln_deposit_sum">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>300</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+   	border: 1px solid white;
+	color: white;
+	font-family: Arial;
+	font-size: 14pt;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="lb_time">
+        <property name="styleSheet">
+         <string>QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Срок размещения:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="ln_time">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+   	border: 1px solid white;
+	color: white;
+	font-family: Arial;
+	font-size: 14pt;
+	font-weight: 600;
+	margin-bottom: 4px;
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="cmb_time">
+        <property name="styleSheet">
+         <string notr="true">QComboBox{
+  border: 1px solid white;
+  color: white;
+  font-family: Arial;
+  font-size: 14pt;
+  font-weight: 600;
+  margin-bottom: 4px;
+}</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>лет</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>месяцев</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="lb_interest">
+        <property name="font">
+         <font>
+          <family>Arioal</family>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Процентная ставка, %:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="ln_interest">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+   	border: 1px solid white;
+	color: white;
+	font-family: Arial;
+	font-size: 14pt;
+	font-weight: 600;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <item>
+       <widget class="QLabel" name="lb_tax">
+        <property name="font">
+         <font>
+          <family>Arioal</family>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Ключевая ставка ЦБ, %:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="ln_tax">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+   	border: 1px solid white;
+	color: white;
+	font-family: Arial;
+	font-size: 14pt;
+	font-weight: 600;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>7.5</string>
+        </property>
+        <property name="placeholderText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="lb_pay_freq">
+        <property name="font">
+         <font>
+          <family>Arioal</family>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Периодичность выплат:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="cmb_pay_freq">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QComboBox{
+  border: 1px solid white;
+  color: white;
+  font-family: Arial;
+  font-size: 14pt;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>каждый день</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>раз в месяц</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>раз в квартал</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>раз в полгода</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>раз в год</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>в конце срока</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="cb_capitalization">
+      <property name="styleSheet">
+       <string notr="true">QCheckBox {
+   color: white;
+	font-size: 14pt;
+}
+
+QCheckBox::indicator {
+     color: white;
+     width: 15px;
+     height: 15px;
+     border: 1px solid white;
+     background-color: none;
+}
+
+QCheckBox::indicator:checked {
+  color: red;
+  background-color: black;
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: white;
+}</string>
+      </property>
+      <property name="text">
+       <string>Капитализация процентов</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_Deposits">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Список пополнений/снятий:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="tb_replenish_withdraw">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>150</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white !important;
+
+QTableWidget {
+    color: white !important;
+   background-color: black;
+}
+
+QHeaderView::section {
+    color: white !important;
+   background-color: black;
+}</string>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>100</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Дата</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Сумма</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_11">
+      <item>
+       <widget class="QPushButton" name="bt_plus">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    color: white;
+    background-color: #3B3B3B;
+    margin: 1px;
+}
+QPushButton:hover {
+    background-color: #323232;
+}
+QPushButton:pressed {
+    background-color: #282828;
+    color: #CECECE
+}</string>
+        </property>
+        <property name="text">
+         <string>+</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_Additions_minus">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    color: white;
+    background-color: #3B3B3B;
+    margin: 1px;
+}
+QPushButton:hover {
+    background-color: #323232;
+}
+QPushButton:pressed {
+    background-color: #282828;
+    color: #CECECE
+}</string>
+        </property>
+        <property name="text">
+         <string>-</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="lb_ac_interest">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arioal</family>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Начисленные проценты:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lb_ac_interest_res">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QLabel" name="lb_sum_tax">
+        <property name="font">
+         <font>
+          <family>Arioal</family>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Сумма налога:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lb_sum_tax_res">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-family: Arial;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QLabel" name="lb_total">
+        <property name="font">
+         <font>
+          <family>Arioal</family>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Сумма на вкладе к концу срока:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lb_total_res">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	color: white;
+	font-size: 13pt;
+	font-weight: 600;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #76B9ED;
+	color: #202020;
+}
+QPushButton:hover {
+    background-color: rgb(109, 169, 216);
+}
+QPushButton:pressed {
+    background-color: rgb(100, 154, 195);
+    color: rgb(64, 98, 124);
+}</string>
+        </property>
+        <property name="text">
+         <string>Расчитать</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

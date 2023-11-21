@@ -1,16 +1,17 @@
-#ifndef EXAMPLEMODEL_H
-#define EXAMPLEMODEL_H
+#ifndef MODEL_H
+#define MODEL_H
 
-class ExampleModel
+namespace s21 {
+class Model
 {
     private:
         double data;
     public:
-        ExampleModel():data(0){};
+        Model():data(0){};
         void add(double a);
         void mult(double a);
         void reset();
         double getData();
 };
-
+}
 #endif
