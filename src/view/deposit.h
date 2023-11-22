@@ -2,12 +2,9 @@
 #define DEPOSIT_H
 
 #include <math.h>
-
 #include <QDialog>
+#include "controller/controller.h"
 
-//extern "C" {
-//#include "model/s21_SmartCalc.h"
-//}
 
 namespace Ui {
 class Deposit;
@@ -17,7 +14,7 @@ class Deposit : public QDialog {
   Q_OBJECT
 
  public:
-  explicit Deposit(QWidget *parent = nullptr);
+  explicit Deposit(s21::Controller *controller, QWidget *parent = nullptr);
   ~Deposit();
 
  private slots:
@@ -29,12 +26,13 @@ class Deposit : public QDialog {
 
  private:
   Ui::Deposit *ui;
-  deposit_model set_model();
-  void get_model(deposit_model model);
-  void s21_deposit(deposit_model *model);
+  s21::Controller *controller;
+  s21::DepositData setData();
+  void get_model(s21::DepositData model);
+  void s21_deposit(s21::DepositData *model);
   QDate getReplenishmentDate(int row);
   double getReplenishmentAmount(int row);
-  void calculate_tax(deposit_model *model, double interest);
+  void calculate_tax(s21::DepositData *model, double interest);
 };
 
 #endif  // DEPOSIT_H

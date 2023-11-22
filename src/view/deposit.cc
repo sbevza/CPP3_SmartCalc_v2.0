@@ -1,9 +1,10 @@
 #include "deposit.h"
 #include "ui_deposit.h"
 
-Deposit::Deposit(QWidget *parent) :
+Deposit::Deposit(s21::Controller *controller, QWidget *parent) :
         QDialog(parent),
-        ui(new Ui::Deposit) {
+        ui(new Ui::Deposit),
+        controller(controller) {
     ui->setupUi(this);
     ui->de_begin_date->setDate(QDate::currentDate());
 
@@ -26,8 +27,8 @@ Deposit::~Deposit() {
     delete ui;
 }
 
-deposit_model Deposit::set_model() {
-    deposit_model model;
+s21::DepositData Deposit::setData() {
+    s21::DepositData model;
     model.deposit_sum = ui->ln_deposit_sum->text().toDouble();
 
     model.months = ui->ln_time->text().toDouble();
@@ -55,7 +56,7 @@ deposit_model Deposit::set_model() {
     return model;
 }
 
-void Deposit::get_model(deposit_model model) {
+void Deposit::get_model(s21::DepositData model) {
     ui->lb_ac_interest_res->setText(QString::number(model.ac_interest, 'f', 2));
     ui->lb_sum_tax_res->setText(QString::number(model.sum_tax, 'f', 2));
     ui->lb_total_res->setText(QString::number(model.sum_total, 'f', 2));
@@ -81,7 +82,7 @@ double Deposit::getReplenishmentAmount(int row) {
     return amount;
 }
 
-void Deposit::s21_deposit(deposit_model *model) {
+void Deposit::s21_deposit(s21::DepositData *model) {
     model->ac_interest = 0;
     model->sum_tax = 0;
     model->sum_total = model->deposit_sum;
@@ -169,7 +170,7 @@ void Deposit::s21_deposit(deposit_model *model) {
     if (model->capitalization) model->sum_total += model->ac_interest;
 }
 
-void Deposit::calculate_tax(deposit_model *model, double interest) {
+void Deposit::calculate_tax(s21::DepositData *model, double interest) {
     double tax = model->tax;
     double taxfree = 1000000.0 * (tax / 100.0);
     double sum_tax = (interest - taxfree) * (13.0 / 100.0);
@@ -178,9 +179,9 @@ void Deposit::calculate_tax(deposit_model *model, double interest) {
 
 void Deposit::on_pushButton_clicked() {
     ui->tb_replenish_withdraw->sortItems(0, Qt::AscendingOrder);
-    deposit_model model = set_model();
-    s21_deposit(&model);
-    get_model(model);
+    s21::DepositData data = setData();
+    s21_deposit(&data);
+    get_model(data);
 }
 
 void Deposit::on_bt_plus_clicked() {

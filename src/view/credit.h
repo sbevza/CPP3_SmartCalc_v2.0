@@ -1,13 +1,10 @@
 #ifndef CREDIT_H
 #define CREDIT_H
 
+#include "controller/controller.h"
 #include <QDialog>
 #include <QIntValidator>
 #include <math.h>
-
-//extern "C" {
-//#include "model/s21_SmartCalc.h"
-//}
 
 namespace Ui {
 class Credit;
@@ -17,7 +14,7 @@ class Credit : public QDialog {
   Q_OBJECT
 
  public:
-  explicit Credit(QWidget *parent = nullptr);
+  explicit Credit(s21::Controller *controller, QWidget *parent = nullptr);
   ~Credit();
 
  private slots:
@@ -25,9 +22,10 @@ class Credit : public QDialog {
 
  private:
   Ui::Credit *ui;
-  credit_model set_model();
-  void get_model(credit_model model);
-  void s21_credit(credit_model *model);
+  s21::Controller *controller;
+  s21::CreditData set_data();
+  void get_data(s21::CreditData data);
+  void s21_credit(s21::CreditData *data);
   double calculate_differentiated(double loan_amount, int months,
                                   double interest_rate, int month);
   double calculate_annuity(double loan_amount, int months, double interest_rate);

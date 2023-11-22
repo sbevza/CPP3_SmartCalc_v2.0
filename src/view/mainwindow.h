@@ -4,13 +4,7 @@
 #include <QDoubleValidator>
 #include <QMainWindow>
 
-#include "credit.h"
-#include "deposit.h"
 #include "controller/controller.h"
-
-//extern "C" {
-//#include "model/s21_SmartCalc.h"
-//}
 
 QT_BEGIN_NAMESPACE
 namespace s21 {
@@ -22,8 +16,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  MainWindow(s21::Controller *c, QWidget *parent = nullptr);
-//  MainWindow(Controller *c) : controller(c) {};
+  MainWindow(s21::Controller *controller, QWidget *parent = nullptr);
   ~MainWindow();
 
  private:

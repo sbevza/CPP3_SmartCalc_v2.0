@@ -6,15 +6,32 @@
 namespace s21 {
 class Controller
 {
-    private:
-        Model *model;
     public:
         Controller(Model *m): model(m) {};
-        double add(double a);
-        double sub(double a);
-        double mult(double a);
-        double div(double a);
-        void reset();
+        void convert_to_poland(std::string str_in, std::string str_out);
+        void handleInput(std::string str_in, double x);
+        int getErrorStatus();
+        double getResult();
+
+        void setDepositData();
+
+        struct DepositData {
+          double deposit_sum;
+          double months;
+          double days;
+          std::tm begin_date;
+          std::tm end_date;
+          double interest;
+          double tax;
+          int pay_freq_idx;
+          int capitalization;
+          double ac_interest;
+          double sum_tax;
+          double sum_total;
+        };
+
+    private:
+        Model *model;
 };
 }
 #endif

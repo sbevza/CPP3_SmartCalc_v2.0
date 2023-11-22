@@ -9,22 +9,22 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    model/s21_SmartCalc.c \
+    model/model.cc \
+    model/model_bak.cc \
     view/credit.cc \
     view/deposit.cc \
     main.cc \
     view/mainwindow.cc \
     view/qcustomplot.cc \
-    model/model.cc \
     controller/controller.cc
 
 HEADERS += \
-    model/s21_SmartCalc.h \
+    model/model.h \
+    model/model_bak.h \
     view/credit.h \
     view/deposit.h \
     view/mainwindow.h \
     view/qcustomplot.h \
-    model/model.h \
     controller/controller.h
 
 FORMS += \

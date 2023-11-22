@@ -1,10 +1,10 @@
-
 #include "credit.h"
 #include "ui_credit.h"
 
-Credit::Credit(QWidget *parent) :
+Credit::Credit(s21::Controller *controller, QWidget *parent) :
         QDialog(parent),
-        ui(new Ui::Credit) {
+        ui(new Ui::Credit),
+        controller(controller) {
     ui->setupUi(this);
 
     QLocale locale(QLocale::C);
@@ -27,40 +27,40 @@ Credit::~Credit() {
     delete ui;
 }
 
-credit_model Credit::set_model() {
-    credit_model model;
-    model.credit_sum = ui->ln_credit_sum->text().toDouble();
-    model.monthly_payment = 0;
-    model.payment_from = 0;
-    model.payment_to = 0;
+s21::CreditData Credit::set_data() {
+    s21::CreditData data;
+    data.credit_sum = ui->ln_credit_sum->text().toDouble();
+    data.monthly_payment = 0;
+    data.payment_from = 0;
+    data.payment_to = 0;
 
-    model.months = ui->ln_time->text().toDouble();
+    data.months = ui->ln_time->text().toDouble();
     if (ui->cmb_time->currentIndex() == 0) {
-        model.months *= 12;
+        data.months *= 12;
     }
 
-    model.interest = ui->ln_interest->text().toDouble();
+    data.interest = ui->ln_interest->text().toDouble();
 
-    model.type_idx = ui->cmb_type->currentIndex();
-    return model;
+    data.type_idx = ui->cmb_type->currentIndex();
+    return data;
 }
 
-void Credit::get_model(credit_model model) {
-    if (model.type_idx) {
+void Credit::get_data(s21::CreditData data) {
+    if (data.type_idx) {
         ui->lb_monthly_payment_res->setText(
-                QString::number(model.payment_from, 'f', 2) + " ... " + QString::number(model.payment_to, 'f', 2));
+                QString::number(data.payment_from, 'f', 2) + " ... " + QString::number(data.payment_to, 'f', 2));
     } else {
-        ui->lb_monthly_payment_res->setText(QString::number(model.monthly_payment, 'f', 2));
+        ui->lb_monthly_payment_res->setText(QString::number(data.monthly_payment, 'f', 2));
     }
 
-    ui->lb_overpayment_res->setText(QString::number(model.overpay, 'f', 2));
-    ui->lb_total_res->setText(QString::number(model.sum_total, 'f', 2));
+    ui->lb_overpayment_res->setText(QString::number(data.overpay, 'f', 2));
+    ui->lb_total_res->setText(QString::number(data.sum_total, 'f', 2));
 }
 
 void Credit::on_pushButton_clicked() {
-    credit_model model = set_model();
-    s21_credit(&model);
-    get_model(model);
+    s21::CreditData data = set_data();
+    s21_credit(&data);
+    get_data(data);
 }
 
 
@@ -79,26 +79,26 @@ double Credit::calculate_differentiated(double loan_amount, int months,
   return base + interest;
 }
 
-void Credit::s21_credit(credit_model *model) {
-  if (!model->type_idx) {
-    model->monthly_payment =
-        calculate_annuity(model->credit_sum, model->months, model->interest);
-    model->overpay = model->monthly_payment * model->months - model->credit_sum;
-    model->sum_total = model->monthly_payment * model->months;
+void Credit::s21_credit(s21::CreditData *data) {
+  if (!data->type_idx) {
+    data->monthly_payment =
+        calculate_annuity(data->credit_sum, data->months, data->interest);
+    data->overpay = data->monthly_payment * data->months - data->credit_sum;
+    data->sum_total = data->monthly_payment * data->months;
   } else {
     double payment = 0;
     double overpay = 0;
-    for (int i = 1; i <= model->months; i++) {
+    for (int i = 1; i <= data->months; i++) {
       double monthly_payment = calculate_differentiated(
-          model->credit_sum, model->months, model->interest, i);
+          data->credit_sum, data->months, data->interest, i);
       payment += monthly_payment;
-      overpay += monthly_payment - model->credit_sum / model->months;
-      if (i == 1) model->payment_from = monthly_payment;
-      if (i == (model->months - 1)) model->payment_to = monthly_payment;
+      overpay += monthly_payment - data->credit_sum / data->months;
+      if (i == 1) data->payment_from = monthly_payment;
+      if (i == (data->months - 1)) data->payment_to = monthly_payment;
     }
-    model->sum_total = payment;
-    model->monthly_payment = model->sum_total / model->months;
-    model->overpay = overpay;
+    data->sum_total = payment;
+    data->monthly_payment = data->sum_total / data->months;
+    data->overpay = overpay;
   }
 }
 

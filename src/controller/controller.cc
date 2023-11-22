@@ -1,27 +1,28 @@
 #include "controller.h"
 
 namespace s21 {
-double Controller::add(double a) {
-  model->add(a);
-  return model->getData();
+void Controller::convert_to_poland(std::string str_in, std::string str_out){
+  model->convert_to_poland();
 }
 
-double Controller::sub(double a) {
-  model->add(-a);
-  return model->getData();
+void Controller::handleInput(std::string str_in, double x){
+//    model->reset();
+    model->setModel(str_in, x);
 }
 
-double Controller::mult(double a) {
-  model->mult(a);
-  return model->getData();
+int Controller::getErrorStatus() {
+  return model->getErrorStatus();
 }
 
-double Controller::div(double a) {
-  model->mult(1.0 / a);
-  return model->getData();
+double Controller::getResult() {
+    return model->getResult();
 }
 
-void Controller::reset() {
-  model->reset();
+void Controller::setDepositData() {
+
 }
+
+//void Controller::reset() {
+//  model->reset();
+//}
 }

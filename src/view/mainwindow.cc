@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "view/credit.h"
+#include "view/deposit.h"
 
 MainWindow::MainWindow(s21::Controller *c, QWidget *parent)
         : QMainWindow(parent), ui(new s21::MainWindow), controller(c) {
@@ -114,14 +116,11 @@ void MainWindow::on_pushButton_del_x_clicked() {
 
 
 void MainWindow::on_pushButton_result_clicked() {
-    int error = 0;
-    double res = 0;
     double x = ui->x_line->text().toDouble();
     std::string str = (ui->result_line->text()).toStdString();
-    const char *c_str = str.c_str();
-    error = s21_SmartCalc(c_str, x, &res);
-    if (error == 0)
-        ui->result_line->setText(QString::number(res, 'g', 15));
+    controller->handleInput(str, x);
+    if (controller->getErrorStatus() == 0)
+        ui->result_line->setText(QString::number(controller->getResult(), 'g', 15));
     else
         ui->result_line->setText("Error");
 }
@@ -150,19 +149,20 @@ void MainWindow::on_pushButton_graph_clicked() {
     ui->plot->yAxis->setRange(y_min, y_max);
 
     std::string str = (ui->result_line->text()).toStdString();
-    const char *c_str = str.c_str();
 
     int numPoints = 700;
     double delta = (x_max - x_min) / (numPoints - 1);
-    double res = 0;
-    int error = 0;
+//    double res = 0;
+//    int error = 0;
     if (delta > 0) {
-        for (double i = x_min; i <= x_max && !error; i += delta) {
+        for (double i = x_min; i <= x_max && !controller->getErrorStatus(); i += delta) {
             x.push_back(i);
-            error = s21_SmartCalc(c_str, i, &res);
-            if (!error) y.push_back(res);
-            if (error)
-                qDebug() << error;
+//            error = s21_SmartCalc(str, i, &res);
+//            s21_SmartCalc(str, i, &res);
+            controller->handleInput(str, i);
+            if (!controller->getErrorStatus()) y.push_back(controller->getResult());
+            if (controller->getErrorStatus())
+                qDebug() << controller->getErrorStatus();
         }
     }
     graph->addData(x, y);
@@ -172,14 +172,14 @@ void MainWindow::on_pushButton_graph_clicked() {
 
 
 void MainWindow::on_pushButton_deposit_clicked() {
-    Deposit window;
+    Deposit window(controller);
     window.setModal(true);
     window.exec();
 }
 
 
 void MainWindow::on_pushButton_credit_clicked() {
-    Credit window;
+    Credit window(controller);
     window.setModal(true);
     window.exec();
 }
