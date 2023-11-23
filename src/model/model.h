@@ -14,7 +14,9 @@ class Model {
  public:
   void s21_SmartCalc(const std::string &str_in, double x, double &res);
   void convert_to_poland();
+  int calculate();
   void setModel(const std::string &in, double x);
+  void reset();
   int getErrorStatus();
   double getResult();
 
@@ -28,7 +30,6 @@ class Model {
   double result_;
 
   void validate();
-  int calculate();
   int execute(char c, std::vector<double> &st, int &pointer);
   int checkLength();
   int parse();

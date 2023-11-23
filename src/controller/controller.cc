@@ -10,8 +10,10 @@ void Controller::convert_to_poland(std::string str_in, std::string str_out) {
 }
 
 void Controller::handleInput(std::string str_in, double x) {
-//    model->reset();
+  model_->reset();
   model_->setModel(str_in, x);
+  model_->convert_to_poland();
+  model_->calculate();
 }
 
 int Controller::getErrorStatus() {

@@ -26,65 +26,66 @@ void Model::convert_to_poland() {
 }
 
 void Model::validate() {
-  int i = 0, i_out = 0, err = 0;
-  while ((in_[i] != '\0' && !err)) {
+  unsigned long i = 0;
+  int err = 0;
+  while ((i < in_.length() && !err)) {
     if (in_[i] == ' ') {
       i++;
       continue;
     }
     if (in_[i] == 'x') {
-      out_[i_out++] = 'x';
+      str_valid_ += 'x';
     } else if (in_[i] == 'c' && in_[i + 1] == 'o' && in_[i + 2] == 's') {
-      out_[i_out++] = 'c';
+      str_valid_ += 'c';
       i += 2;
     } else if (in_[i] == 's' && in_[i + 1] == 'i' && in_[i + 2] == 'n') {
-      out_[i_out++] = 's';
+      str_valid_ += 's';
       i += 2;
     } else if (in_[i] == 't' && in_[i + 1] == 'a' && in_[i + 2] == 'n') {
-      out_[i_out++] = 't';
+      str_valid_ += 't';
       i += 2;
     } else if (in_[i] == 'a' && in_[i + 1] == 'c' && in_[i + 2] == 'o' &&
         in_[i + 3] == 's') {
-      out_[i_out++] = 'o';
+      str_valid_ += 'o';
       i += 3;
     } else if (in_[i] == 'a' && in_[i + 1] == 's' && in_[i + 2] == 'i' &&
         in_[i + 3] == 'n') {
-      out_[i_out++] = 'i';
+      str_valid_ += 'i';
       i += 3;
     } else if (in_[i] == 'a' && in_[i + 1] == 't' && in_[i + 2] == 'a' &&
         in_[i + 3] == 'n') {
-      out_[i_out++] = 'a';
+      str_valid_ += 'a';
       i += 3;
     } else if (in_[i] == 's' && in_[i + 1] == 'q' && in_[i + 2] == 'r' &&
         in_[i + 3] == 't') {
-      out_[i_out++] = 'q';
+      str_valid_ += 'q';
       i += 3;
     } else if (in_[i] == 'l' && in_[i + 1] == 'n') {
-      out_[i_out++] = 'l';
+      str_valid_ += 'l';
       i++;
     } else if (in_[i] == 'l' && in_[i + 1] == 'o' && in_[i + 2] == 'g') {
-      out_[i_out++] = 'g';
+      str_valid_ += 'g';
       i += 2;
     } else if (in_[i] == 'm' && in_[i + 1] == 'o' && in_[i + 2] == 'd') {
-      out_[i_out++] = 'm';
+      str_valid_ += 'm';
       i += 2;
     } else if (in_[i] == '(' && (in_[i + 1] == '-' || in_[i + 1] == '+')) {
-      out_[i_out++] = '(';
-      out_[i_out++] = '0';
+      str_valid_ += '(';
+      str_valid_ += '0';
     } else if (i == 0 && in_[i] == '-') {
-      out_[i_out++] = '0';
-      out_[i_out++] = '-';
+      str_valid_ += '0';
+      str_valid_ += '-';
     } else if (i == 0 && in_[i] == '+') {
-      out_[i_out++] = '0';
-      out_[i_out++] = '+';
+      str_valid_ += '0';
+      str_valid_ += '+';
     } else if ((in_[i] >= 48 && in_[i] <= 57) &&
         (in_[i + 1] == '(' || in_[i + 1] == 'a' || in_[i + 1] == 'c' ||
             in_[i + 1] == 's' || in_[i + 1] == 't' || in_[i + 1] == 'l' ||
             in_[i + 1] == 'x')) {
-      out_[i_out++] = in_[i];
-      out_[i_out++] = '*';
+      str_valid_ += in_[i];
+      str_valid_ += '*';
     } else if ((in_[i] >= 40 && in_[i] <= 57) || (in_[i] <= '^')) {
-      out_[i_out++] = in_[i];
+      str_valid_ += in_[i];
     } else {
       err = 1;
     }
@@ -129,43 +130,44 @@ int Model::check_tigenometry() {
 }
 
 int Model::parse() {
-  int i = 0, i_out = 0, err = 0;
+  unsigned long i = 0;
+  int err = 0;
   std::stack<char> st;
-  while ((in_[i] != '\0') && !err) {
-    if ((in_[i] == 'x') || (priorites(in_[i]) == 0)) {
-      out_[i_out++] = in_[i];
-      if (priorites(in_[i + 1]) != 0) {
-        out_[i_out++] = ' ';
+  while ((i < str_valid_.length()) && !err) {
+    if ((str_valid_[i] == 'x') || (priorites(str_valid_[i]) == 0)) {
+      out_ += str_valid_[i];
+      if (priorites(str_valid_[i + 1]) != 0) {
+        out_ += ' ';
       }
-    } else if ((in_[i] == '(') || (priorites(in_[i]) == 4)) {
-      st.push(in_[i]);
-    } else if (in_[i] == ')') {
+    } else if ((str_valid_[i] == '(') || (priorites(str_valid_[i]) == 4)) {
+      st.push(str_valid_[i]);
+    } else if (str_valid_[i] == ')') {
       while (st.top() != '(' && !err) {
         char c = st.top();
         st.pop();
         if (c == '\0')
           err = 1;
         else
-          out_[i_out++] = c;
+          out_ += c;
       }
       st.pop();
-    } else if (priorites(in_[i]) == 2 || priorites(in_[i]) == 3 ||
-        priorites(in_[i]) == 5) {
-      if (priorites(st.top()) < priorites(in_[i])) {
-        st.push(in_[i]);
-      } else if (priorites(st.top()) >= priorites(in_[i])) {
-        while (priorites(st.top()) >= priorites(in_[i])) {
-          out_[i_out++] = st.top();
+    } else if (priorites(str_valid_[i]) == 2 || priorites(str_valid_[i]) == 3 ||
+        priorites(str_valid_[i]) == 5) {
+      if ((st.empty() ? 0 : priorites(st.top())) < priorites(str_valid_[i])) {
+        st.push(str_valid_[i]);
+      } else if (priorites(st.top()) >= priorites(str_valid_[i])) {
+        while (priorites(st.top()) >= priorites(str_valid_[i])) {
+          out_ += st.top();
           st.pop();
         }
-        st.push(in_[i]);
+        st.push(str_valid_[i]);
       }
     }
     i++;
   }
 
   while (st.size() != 0) {
-    out_[i_out++] = st.top();
+    out_ += st.top();
     st.pop();
   }
   return err;
@@ -192,26 +194,26 @@ int Model::priorites(char c) {
 
 int Model::calculate() {
   int err = 0, pointer = 0, i = 0;
-  std::vector<double> st(buffer_, 0);
+  std::vector<double> st;
   while (out_[i] != '\0' && !err) {
     if ((out_[i] >= 48 && out_[i] <= 57) || out_[i] == 46) {
-      std::string num(buffer_, '\0');
-      int k = 0;
+      std::string num;
       while (((out_[i] >= 48 && out_[i] <= 57) || out_[i] == 46)) {
-        num[k++] = out_[i++];
+        num += out_[i++];
       }
       i--;
       err = check_dots(num);
       if (!err) {
-//        st[pointer++] = atof(num);
         try {
-          st[pointer++] = std::stod(num);
+          st.push_back(std::stod(num));
+          pointer++;
         } catch (const std::invalid_argument &e) {
           err = 1;
         }
       }
     } else if (out_[i] == 'x') {
-      st[pointer++] = x_;
+      st.push_back(x_);
+      pointer++;
     } else if (out_[i] != ' ') {
       err = execute(out_[i], st, pointer);
     }
@@ -232,21 +234,26 @@ int Model::execute(char c, std::vector<double> &st, int &pointer) {
   if (!err) {
     switch (c) {
       case '+':st[pointer - 2] += st[pointer - 1];
+        st.pop_back();
         (pointer)--;
         break;
       case '-':st[pointer - 2] -= st[pointer - 1];
+        st.pop_back();
         (pointer)--;
         break;
       case '*':st[pointer - 2] *= st[pointer - 1];
+        st.pop_back();
         (pointer)--;
         break;
       case '/':err = st[pointer - 1] == 0;
         if (!err) {
           st[pointer - 2] /= st[pointer - 1];
+          st.pop_back();
           (pointer)--;
         }
         break;
       case 'm':st[pointer - 2] = fmod(st[pointer - 2], st[pointer - 1]);
+        st.pop_back();
         (pointer)--;
         break;
       case 's':st[pointer - 1] = sin(st[pointer - 1]);
@@ -268,6 +275,7 @@ int Model::execute(char c, std::vector<double> &st, int &pointer) {
       case 'g':st[pointer - 1] = log10(st[pointer - 1]);
         break;
       case '^':st[pointer - 2] = pow(st[pointer - 2], st[pointer - 1]);
+        st.pop_back();
         (pointer)--;
         break;
     }
@@ -306,6 +314,15 @@ void Model::setModel(const std::string &in, double x) {
   // Check length here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   in_ = in;
   x_ = x;
+}
+
+void Model::reset() {
+    in_.clear();
+    out_.clear();
+    str_valid_.clear();
+    x_ = 0;
+    error_ = 0;
+    result_ = 0;
 }
 
 int Model::getErrorStatus() {

@@ -13,6 +13,8 @@ add_executable(CPP3_SmartCalc_v2_0_1
         src/model/model.cc
         src/model/model.h
         src/main.cc
-        src/model/s21_SmartCalc.h
-        src/model/s21_SmartCalc.cc
+        src/view/deposit.h
+        src/view/credit.cc
+        src/model/model_credit.cc
+        src/view/mainwindow.cc
 )
