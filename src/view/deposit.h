@@ -3,8 +3,8 @@
 
 #include <math.h>
 #include <QDialog>
+#include <qtablewidget.h>
 #include "controller/controller.h"
-
 
 namespace Ui {
 class Deposit;
@@ -19,9 +19,7 @@ class Deposit : public QDialog {
 
  private slots:
   void on_pushButton_clicked();
-
   void on_bt_plus_clicked();
-
   void on_pushButton_Additions_minus_clicked();
 
  private:
@@ -33,6 +31,7 @@ class Deposit : public QDialog {
   QDate getReplenishmentDate(int row);
   double getReplenishmentAmount(int row);
   void calculate_tax(s21::DepositData *model, double interest);
+  std::vector<s21::ReplenishmentData> extractData();
 };
 
 #endif  // DEPOSIT_H

@@ -2,16 +2,16 @@
 
 namespace s21 {
 
-Controller::Controller(Model *model, ModelCredit *modelCredit, ModelDeposit *modelDeposit):
+Controller::Controller(Model *model, ModelCredit *modelCredit, ModelDeposit *modelDeposit) :
     model_(model), modelCredit_(modelCredit), modelDeposit_(modelDeposit) {};
 
-void Controller::convert_to_poland(std::string str_in, std::string str_out){
+void Controller::convert_to_poland(std::string str_in, std::string str_out) {
   model_->convert_to_poland();
 }
 
-void Controller::handleInput(std::string str_in, double x){
+void Controller::handleInput(std::string str_in, double x) {
 //    model->reset();
-    model_->setModel(str_in, x);
+  model_->setModel(str_in, x);
 }
 
 int Controller::getErrorStatus() {
@@ -19,31 +19,31 @@ int Controller::getErrorStatus() {
 }
 
 double Controller::getResult() {
-    return model_->getResult();
+  return model_->getResult();
 }
 
 void Controller::setCreditData(CreditData data) {
-    modelCredit_->setModel(data);
+  modelCredit_->setModel(data);
 }
 
 void Controller::calculateCredit() {
-    modelCredit_->calculate();
+  modelCredit_->calculate();
 }
 
-void Controller::calculateDeposit(){
-    modelDeposit_->calculate();
+void Controller::calculateDeposit() {
+  modelDeposit_->calculate();
 }
 
 CreditData Controller::getCreditData() {
-    return modelCredit_->getResult();
+  return modelCredit_->getResult();
 }
 
 DepositData Controller::getDepositData() {
-    return modelDeposit_->getResult();
+  return modelDeposit_->getResult();
 }
 
 void Controller::setDepositData(DepositData data) {
-    modelDeposit_->setModel(data);
+  modelDeposit_->setModel(data);
 }
 
 //void Controller::reset() {
