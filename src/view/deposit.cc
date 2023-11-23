@@ -27,60 +27,61 @@ Deposit::~Deposit() {
     delete ui;
 }
 
-s21::DepositData Deposit::setData() {
-    s21::DepositData model;
-    model.deposit_sum = ui->ln_deposit_sum->text().toDouble();
+void Deposit::setData() {
+    s21::DepositData data;
+    data.deposit_sum = ui->ln_deposit_sum->text().toDouble();
 
-    model.months = ui->ln_time->text().toDouble();
+    data.months = ui->ln_time->text().toDouble();
     if (ui->cmb_time->currentIndex() == 0) {
-        model.months *= 12;
+        data.months *= 12;
     }
 
-    model.interest = ui->ln_interest->text().toDouble();
-    model.tax = ui->ln_tax->text().toDouble();
-    model.pay_freq_idx = ui->cmb_pay_freq->currentIndex();
-    model.capitalization = ui->cb_capitalization->isChecked();
+    data.interest = ui->ln_interest->text().toDouble();
+    data.tax = ui->ln_tax->text().toDouble();
+    data.pay_freq_idx = ui->cmb_pay_freq->currentIndex();
+    data.capitalization = ui->cb_capitalization->isChecked();
     int months = 12;
 
     QVariant itemData = ui->de_begin_date->date();
     QString dateString = itemData.toString();
     QDate begin_date = QDate::fromString(dateString, "yyyy-MM-dd");
-    model.begin_date.tm_year = begin_date.year() - 1900;
-    model.begin_date.tm_mon = begin_date.month() - 1;
-    model.begin_date.tm_mday = begin_date.day();
+    data.begin_date.tm_year = begin_date.year() - 1900;
+    data.begin_date.tm_mon = begin_date.month() - 1;
+    data.begin_date.tm_mday = begin_date.day();
 
     QDate end_date = begin_date.addMonths(months);
-    model.days = begin_date.daysTo(end_date);
-    model.sum_tax = 0;
+    data.days = begin_date.daysTo(end_date);
+    data.sum_tax = 0;
 
-    return model;
+    controller->setDepositData(data);
 }
 
-void Deposit::get_model(s21::DepositData model) {
+void Deposit::get_data() {
+    s21::DepositData model = controller->getDepositData();
     ui->lb_ac_interest_res->setText(QString::number(model.ac_interest, 'f', 2));
     ui->lb_sum_tax_res->setText(QString::number(model.sum_tax, 'f', 2));
     ui->lb_total_res->setText(QString::number(model.sum_total, 'f', 2));
 }
 
-QDate Deposit::getReplenishmentDate(int row) {
-    QTableWidgetItem *dateItem = ui->tb_replenish_withdraw->item(row, 0);
-    QDate date;
-    if (dateItem) {
-        QVariant itemData = dateItem->data(Qt::DisplayRole);
-        QString dateString = itemData.toString();
-        date = QDate::fromString(dateString, "dd.MM.yyyy");
-    }
-    return date;
-}
+//QDate Deposit::getReplenishmentDate(int row) {
+//    QTableWidgetItem *dateItem = ui->tb_replenish_withdraw->item(row, 0);
+//    QDate date;
+//    if (dateItem) {
+//        QVariant itemData = dateItem->data(Qt::DisplayRole);
+//        QString dateString = itemData.toString();
+//        date = QDate::fromString(dateString, "dd.MM.yyyy");
+//    }
+//    return date;
+//}
 
-double Deposit::getReplenishmentAmount(int row) {
-    QTableWidgetItem *sumItem = ui->tb_replenish_withdraw->item(row, 1);
-    double amount = 0;
-    if (sumItem) {
-        amount = sumItem->text().toDouble();
-    }
-    return amount;
-}
+//double Deposit::getReplenishmentAmount(int row) {
+//    QTableWidgetItem *sumItem = ui->tb_replenish_withdraw->item(row, 1);
+//    double amount = 0;
+//    if (sumItem) {
+//        amount = sumItem->text().toDouble();
+//    }
+//    return amount;
+//}
 
 void Deposit::s21_deposit(s21::DepositData *model) {
     model->ac_interest = 0;
@@ -170,18 +171,18 @@ void Deposit::s21_deposit(s21::DepositData *model) {
     if (model->capitalization) model->sum_total += model->ac_interest;
 }
 
-void Deposit::calculate_tax(s21::DepositData *model, double interest) {
-    double tax = model->tax;
-    double taxfree = 1000000.0 * (tax / 100.0);
-    double sum_tax = (interest - taxfree) * (13.0 / 100.0);
-    if (sum_tax > 0) model->sum_tax += sum_tax;
-}
+//void Deposit::calculate_tax(s21::DepositData *model, double interest) {
+//    double tax = model->tax;
+//    double taxfree = 1000000.0 * (tax / 100.0);
+//    double sum_tax = (interest - taxfree) * (13.0 / 100.0);
+//    if (sum_tax > 0) model->sum_tax += sum_tax;
+//}
 
 void Deposit::on_pushButton_clicked() {
     ui->tb_replenish_withdraw->sortItems(0, Qt::AscendingOrder);
-    s21::DepositData data = setData();
-    s21_deposit(&data);
-    get_model(data);
+    setData();
+    controller->calculateDeposit();
+    get_data();
 }
 
 void Deposit::on_bt_plus_clicked() {

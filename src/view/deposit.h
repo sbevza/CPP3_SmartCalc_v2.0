@@ -27,8 +27,8 @@ class Deposit : public QDialog {
  private:
   Ui::Deposit *ui;
   s21::Controller *controller;
-  s21::DepositData setData();
-  void get_model(s21::DepositData model);
+  void setData();
+  void get_data();
   void s21_deposit(s21::DepositData *model);
   QDate getReplenishmentDate(int row);
   double getReplenishmentAmount(int row);

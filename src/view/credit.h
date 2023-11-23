@@ -23,8 +23,8 @@ class Credit : public QDialog {
  private:
   Ui::Credit *ui;
   s21::Controller *controller;
-  s21::CreditData set_data();
-  void get_data(s21::CreditData data);
+  void set_data();
+  void get_data();
   void s21_credit(s21::CreditData *data);
   double calculate_differentiated(double loan_amount, int months,
                                   double interest_rate, int month);

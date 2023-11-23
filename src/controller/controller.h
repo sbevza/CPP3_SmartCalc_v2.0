@@ -2,36 +2,29 @@
 #define CONTROLLER_H
 
 #include "model/model.h"
+#include "model/model_credit.h"
+#include "model/model_deposit.h"
 
 namespace s21 {
 class Controller
 {
     public:
-        Controller(Model *m): model(m) {};
+        Controller(Model *model, ModelCredit *modelCredit, ModelDeposit *modelDeposit);
         void convert_to_poland(std::string str_in, std::string str_out);
         void handleInput(std::string str_in, double x);
+        void calculateCredit();
+        void calculateDeposit();
         int getErrorStatus();
         double getResult();
-
-        void setDepositData();
-
-        struct DepositData {
-          double deposit_sum;
-          double months;
-          double days;
-          std::tm begin_date;
-          std::tm end_date;
-          double interest;
-          double tax;
-          int pay_freq_idx;
-          int capitalization;
-          double ac_interest;
-          double sum_tax;
-          double sum_total;
-        };
+        CreditData getCreditData();
+        DepositData getDepositData();
+        void setDepositData(DepositData data);
+        void setCreditData(CreditData data);
 
     private:
-        Model *model;
+        Model *model_;
+        ModelCredit *modelCredit_;
+        ModelDeposit *modelDeposit_;
 };
 }
 #endif

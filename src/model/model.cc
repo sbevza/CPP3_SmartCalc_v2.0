@@ -332,18 +332,3 @@ double Model::getResult(){
 }
 
 };
-
-//int check_dots(char *str) {
-//  int count = 0;
-//  size_t length = strlen(str);
-//  for (size_t i = 0; i < length; i++) {
-//    if (str[i] == '.') {
-//      count++;
-//    }
-//  }
-
-//  return count > 1;
-//}
-
-
-

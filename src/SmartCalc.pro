@@ -10,7 +10,8 @@ CONFIG += c++17
 
 SOURCES += \
     model/model.cc \
-    model/model_bak.cc \
+    model/model_credit.cc \
+    model/model_deposit.cc \
     view/credit.cc \
     view/deposit.cc \
     main.cc \
@@ -20,7 +21,8 @@ SOURCES += \
 
 HEADERS += \
     model/model.h \
-    model/model_bak.h \
+    model/model_credit.h \
+    model/model_deposit.h \
     view/credit.h \
     view/deposit.h \
     view/mainwindow.h \
