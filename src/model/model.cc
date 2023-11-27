@@ -155,8 +155,8 @@ int Model::parse() {
         priorites(str_valid_[i]) == 5) {
       if ((st.empty() ? 0 : priorites(st.top())) < priorites(str_valid_[i])) {
         st.push(str_valid_[i]);
-      } else if (priorites(st.top()) >= priorites(str_valid_[i])) {
-        while (priorites(st.top()) >= priorites(str_valid_[i])) {
+      } else if ((st.empty() ? 0 :priorites(st.top())) >= priorites(str_valid_[i])) {
+        while ((st.empty() ? 0 : priorites(st.top())) >= priorites(str_valid_[i])) {
           out_ += st.top();
           st.pop();
         }

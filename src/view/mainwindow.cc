@@ -1,3 +1,4 @@
+
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "view/credit.h"
@@ -152,13 +153,9 @@ void MainWindow::on_pushButton_graph_clicked() {
 
     int numPoints = 700;
     double delta = (x_max - x_min) / (numPoints - 1);
-//    double res = 0;
-//    int error = 0;
     if (delta > 0) {
         for (double i = x_min; i <= x_max && !controller->getErrorStatus(); i += delta) {
             x.push_back(i);
-//            error = s21_SmartCalc(str, i, &res);
-//            s21_SmartCalc(str, i, &res);
             controller->handleInput(str, i);
             if (!controller->getErrorStatus()) y.push_back(controller->getResult());
             if (controller->getErrorStatus())
