@@ -3,9 +3,12 @@
 namespace s21 {
 
 void Model::s21_SmartCalc(const std::string &str_in, double x, double &res) {
+  reset();
   std::string str_out;
+  setModel(str_in, x);
   convert_to_poland();
-//  calculate(str_out, x, res);
+  calculate();
+  res = getResult();
 }
 
 void Model::convert_to_poland() {
@@ -176,7 +179,7 @@ int Model::parse() {
 int Model::priorites(char c) {
   int priority = 0;
   if (c == 's' || c == 'c' || c == 't' || c == 'g' || c == 'l' || c == 'q' ||
-      c == 'o' || c == 'i' || c == 'a') {
+      c == 'o' || c == 'i' || c == 'a' || c == '^') {
     priority = 4;
   } else if (c == '*' || c == '/' || c == 'm') {
     priority = 3;
@@ -186,8 +189,8 @@ int Model::priorites(char c) {
     priority = 1;
   } else if ((c >= 48 && c <= 57) || c == 46) {
     priority = 0;
-  } else if (c == '^') {
-    priority = 5;
+//  } else if (c == '^') {
+//    priority = 5;
   }
   return priority;
 }
@@ -311,7 +314,6 @@ int Model::check_dots(const std::string &str) {
 }
 
 void Model::setModel(const std::string &in, double x) {
-  // Check length here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   in_ = in;
   x_ = x;
 }
