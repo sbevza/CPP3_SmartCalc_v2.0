@@ -215,7 +215,7 @@ TEST(Calc, test_calc_23) {
   s21::Model m;
   double result;
   m.s21_SmartCalc(input, 0.0, result);
-  EXPECT_EQ(m.getErrorStatus(), 1);
+  EXPECT_EQ(m.getErrorStatus(), 2);
 }
 
 TEST(Calc, test_calc_24) {
@@ -248,7 +248,7 @@ TEST(Calc, test_calc_27) {
   double result;
   s21::Model m;
   m.s21_SmartCalc(input, 0.0, result);
-  EXPECT_EQ(result, 64);
+  EXPECT_EQ(result, 512);
   EXPECT_EQ(m.getErrorStatus(), 0);
 }
 

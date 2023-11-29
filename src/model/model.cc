@@ -4,7 +4,7 @@ namespace s21 {
 
 void Model::s21_SmartCalc(const std::string &str_in, double x, double &res) {
   reset();
-  std::string str_out;
+//  std::string str_out;
   setModel(str_in, x);
   convert_to_poland();
   calculate();
@@ -189,8 +189,8 @@ int Model::priorites(char c) {
     priority = 1;
   } else if ((c >= 48 && c <= 57) || c == 46) {
     priority = 0;
-//  } else if (c == '^') {
-//    priority = 5;
+  } else if (c == '^') {
+    priority = 5;
   }
   return priority;
 }
@@ -198,7 +198,7 @@ int Model::priorites(char c) {
 int Model::calculate() {
   int err = 0, pointer = 0, i = 0;
   std::vector<double> st;
-  while (out_[i] != '\0' && !err) {
+  while (out_.size() > i && !err) {
     if ((out_[i] >= 48 && out_[i] <= 57) || out_[i] == 46) {
       std::string num;
       while (((out_[i] >= 48 && out_[i] <= 57) || out_[i] == 46)) {
@@ -228,6 +228,7 @@ int Model::calculate() {
   } else {
     err = 1;
   }
+  error_ = error_ ? error_ : err;
   return err;
 }
 
@@ -248,11 +249,13 @@ int Model::execute(char c, std::vector<double> &st, int &pointer) {
         st.pop_back();
         (pointer)--;
         break;
-      case '/':err = st[pointer - 1] == 0;
+      case '/':err = st[pointer - 1] == 0 ? 2 : 0;
         if (!err) {
           st[pointer - 2] /= st[pointer - 1];
           st.pop_back();
           (pointer)--;
+        } else {
+          error_ = err;
         }
         break;
       case 'm':st[pointer - 2] = fmod(st[pointer - 2], st[pointer - 1]);
