@@ -326,3 +326,65 @@ TEST(Calc, test_calc_36) {
   EXPECT_EQ(m.getErrorStatus(), 1);
 }
 
+TEST(Calc, test_calc_37) {
+  double x = 0.0003;
+  std::string input = "asin()";
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 1);
+}
+
+TEST(Calc, test_calc_38) {
+  double x = 0.0003;
+  std::string input = "sqrt()";
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 1);
+}
+
+TEST(Calc, test_calc_39) {
+  double x = 0.0003;
+  std::string input = "sqrt(\0)";
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 1);
+}
+
+TEST(Calc, test_calc_40) {
+  double x = 0.0003;
+  std::string input = "log()";
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 1);
+}
+
+TEST(Calc, test_calc_41) {
+  double x = 0.0003;
+  std::string input = std::string("(") + '\0' + ')';;
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 1);
+}
+
+TEST(Calc, test_calc_42) {
+  double x = 0.0003;
+  std::string input = "1234567890123456789012345678901234567890";
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 0);
+}
+
+TEST(Calc, test_calc_43) {
+  double x = 0.0003;
+  std::string input = "1234567890123456789012345678901234567890^1234567890123456789012345678901234567890";
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 0);
+}
