@@ -4,7 +4,6 @@ namespace s21 {
 
 void Model::s21_SmartCalc(const std::string &str_in, double x, double &res) {
   reset();
-//  std::string str_out;
   setModel(str_in, x);
   convert_to_poland();
   calculate();
@@ -196,7 +195,8 @@ int Model::priorites(char c) {
 }
 
 int Model::calculate() {
-  int err = 0, pointer = 0, i = 0;
+  int err = 0, pointer = 0;
+  long unsigned int i = 0;
   std::vector<double> st;
   while (out_.size() > i && !err) {
     if ((out_[i] >= 48 && out_[i] <= 57) || out_[i] == 46) {
