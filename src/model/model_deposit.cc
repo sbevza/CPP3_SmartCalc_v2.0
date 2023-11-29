@@ -103,12 +103,6 @@ QDate ModelDeposit::getReplenishmentDate(int row) {
 }
 
 double ModelDeposit::getReplenishmentAmount(int row) {
-//    data_.table[row].amount;
-//    QTableWidgetItem *sumItem = ui->tb_replenish_withdraw->item(row, 1);
-//    double amount = 0;
-//    if (sumItem) {
-//        amount = sumItem->text().toDouble();
-//    }
     return data_.table[row].amount;
 }
 

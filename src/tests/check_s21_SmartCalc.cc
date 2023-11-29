@@ -388,3 +388,29 @@ TEST(Calc, test_calc_43) {
   m.s21_SmartCalc(input, x, result);
   EXPECT_EQ(m.getErrorStatus(), 0);
 }
+
+TEST(Credit, test_calc_annuity) {
+  s21::CreditData data = {1000000, 12, 15, 0, 0, 0, 0, 0, 0}; // Инициализация структуры
+  s21::ModelCredit model;
+  model.setModel(data);
+  model.calculate();
+  s21::CreditData result = model.getResult();
+
+  EXPECT_NEAR(result.monthly_payment, 90258.31234515722, 1.0);
+  EXPECT_NEAR(result.sum_total, 1083099.7481418867, 1.0);
+  EXPECT_NEAR(result.overpay, 83099.74814188667, 1.0);
+}
+
+TEST(Credit, test_calc_differentiated) {
+  s21::CreditData data = {1000000, 12, 15, 1, 0, 0, 0, 0, 0}; // Инициализация структуры
+  s21::ModelCredit model;
+  model.setModel(data);
+  model.calculate();
+  s21::CreditData result = model.getResult();
+
+  EXPECT_NEAR(result.monthly_payment, 90104.16666666667, 1.0);
+  EXPECT_NEAR(result.sum_total, 1081250, 1.0);
+  EXPECT_NEAR(result.overpay, 81250, 1.0);
+  EXPECT_NEAR(result.payment_from, 95833.33333333333, 1.0);
+  EXPECT_NEAR(result.payment_to, 85416.66666666666, 1.0);
+}

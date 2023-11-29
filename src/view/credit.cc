@@ -32,7 +32,8 @@ void Credit::set_data() {
   data.monthly_payment = 0;
   data.payment_from = 0;
   data.payment_to = 0;
-
+  data.overpay = 0;
+  data.sum_total = 0;
   data.months = ui->ln_time->text().toDouble();
   if (ui->cmb_time->currentIndex() == 0) {
     data.months *= 12;

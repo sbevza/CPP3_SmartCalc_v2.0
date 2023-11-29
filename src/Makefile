@@ -2,7 +2,7 @@ CC= gcc
 CFLAGS= -Wall -Wextra -Werror
 STANDART= -std=c++17
 TESTFLAGS= -lgtest -lgtest_main -lstdc++ -lm
-TESTFILES= tests/*.cc model/model.cc
+TESTFILES= tests/*.cc model/model*.cc
 
 OS = $(shell uname)
 
