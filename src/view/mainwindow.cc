@@ -5,7 +5,7 @@
 #include "view/deposit.h"
 
 MainWindow::MainWindow(s21::Controller *c, QWidget *parent)
-        : QMainWindow(parent), ui(new s21::MainWindow), controller(c) {
+        : QMainWindow(parent), ui(new Ui::MainWindow), controller(c) {
     ui->setupUi(this);
     double x_max = 10;
     double x_min = -10;
