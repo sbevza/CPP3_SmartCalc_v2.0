@@ -9,7 +9,7 @@ namespace s21 {
 class Controller {
  public:
   Controller(Model *model, ModelCredit *modelCredit, ModelDeposit *modelDeposit);
-  void convert_to_poland(std::string str_in, std::string str_out);
+  void convert_to_poland();
   void handleInput(std::string str_in, double x);
   void calculateCredit();
   void calculateDeposit();

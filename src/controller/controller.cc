@@ -5,7 +5,7 @@ namespace s21 {
 Controller::Controller(Model *model, ModelCredit *modelCredit, ModelDeposit *modelDeposit) :
     model_(model), modelCredit_(modelCredit), modelDeposit_(modelDeposit) {};
 
-void Controller::convert_to_poland(std::string str_in, std::string str_out) {
+void Controller::convert_to_poland() {
   model_->convert_to_poland();
 }
 

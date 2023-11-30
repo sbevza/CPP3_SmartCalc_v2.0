@@ -389,6 +389,24 @@ TEST(Calc, test_calc_43) {
   EXPECT_EQ(m.getErrorStatus(), 0);
 }
 
+TEST(Calc, test_calc_44) {
+  double x = 0.0003;
+  std::string input = "acos(6)";
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 0);
+}
+
+TEST(Calc, test_calc_45) {
+  double x = 1.5;
+  std::string input = "sin(x)+4/(2+x^2)-cos(2*x)";
+  double result;
+  s21::Model m;
+  m.s21_SmartCalc(input, x, result);
+  EXPECT_EQ(m.getErrorStatus(), 0);
+}
+
 TEST(Credit, test_calc_annuity) {
   s21::CreditData data = {1000000, 12, 15, 0, 0, 0, 0, 0, 0}; // Инициализация структуры
   s21::ModelCredit model;
@@ -413,4 +431,110 @@ TEST(Credit, test_calc_differentiated) {
   EXPECT_NEAR(result.overpay, 81250, 1.0);
   EXPECT_NEAR(result.payment_from, 95833.33333333333, 1.0);
   EXPECT_NEAR(result.payment_to, 85416.66666666666, 1.0);
+}
+
+TEST(Deposit, TestCalculation) {
+  s21::DepositData data = {1000000, 12, 10, 7.5, 0, 1, 0,
+                           0, 0, QDate(2023, 1, 1), {
+                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
+                           }};
+  s21::ModelDeposit model;
+  model.setModel(data);
+  model.calculate();
+  s21::DepositData result = model.getResult();
+
+  EXPECT_NEAR(result.ac_interest, 105237.45, 1.0);
+  EXPECT_NEAR(result.sum_total, 1105237.45, 1.0);
+  EXPECT_NEAR(result.sum_tax, 3891.6228000000056, 1.0);
+}
+
+TEST(Deposit, TestCalculation2) {
+  s21::DepositData data = {1000000, 12, 10, 7.5, 0, 0, 0,
+                           0, 0, QDate(2023, 1, 1), {
+                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
+                           }};
+  s21::ModelDeposit model;
+  model.setModel(data);
+  model.calculate();
+  s21::DepositData result = model.getResult();
+
+  EXPECT_NEAR(result.ac_interest, 100080.5, 1.0);
+  EXPECT_NEAR(result.sum_total, 1000000, 1.0);
+  EXPECT_NEAR(result.sum_tax, 3224.9464000000626, 1.0);
+}
+
+TEST(Deposit, TestCalculation3) {
+  s21::DepositData data = {1000000, 12, 10, 7.5, 2, 1, 0,
+                           0, 0, QDate(2023, 1, 1), {
+                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
+                           }};
+  s21::ModelDeposit model;
+  model.setModel(data);
+  model.calculate();
+  s21::DepositData result = model.getResult();
+
+  EXPECT_NEAR(result.ac_interest, 103894.44, 1.0);
+  EXPECT_NEAR(result.sum_total, 1103894.4399999999, 1.0);
+  EXPECT_NEAR(result.sum_tax, 217.73569999999427, 1.0);
+}
+
+TEST(Deposit, TestCalculation4) {
+  s21::DepositData data = {1000000, 12, 10, 7.5, 3, 1, 0,
+                           0, 0, QDate(2023, 1, 1), {
+                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
+                           }};
+  s21::ModelDeposit model;
+  model.setModel(data);
+  model.calculate();
+  s21::DepositData result = model.getResult();
+
+  EXPECT_NEAR(result.ac_interest, 102581.02, 1.0);
+  EXPECT_NEAR(result.sum_total, 1102581.02, 1.0);
+  EXPECT_NEAR(result.sum_tax, 0, 1.0);
+}
+
+TEST(Deposit, TestCalculation5) {
+  s21::DepositData data = {1000000, 12, 10, 7.5, 1, 1, 0,
+                           0, 0, QDate(2023, 1, 1), {
+                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
+                           }};
+  s21::ModelDeposit model;
+  model.setModel(data);
+  model.calculate();
+  s21::DepositData result = model.getResult();
+
+  EXPECT_NEAR(result.ac_interest, 104879, 1.0);
+  EXPECT_NEAR(result.sum_total, 1104879, 1.0);
+  EXPECT_NEAR(result.sum_tax, 3953.5612999999994, 1.0);
+}
+
+TEST(Deposit, TestCalculation6) {
+  s21::DepositData data = {10000000, 12, 10, 7.5, 4, 1, 0,
+                           0, 0, QDate(2023, 1, 30), {}};
+  s21::ModelDeposit model;
+  model.setModel(data);
+  model.calculate();
+  s21::DepositData result = model.getResult();
+
+  EXPECT_NEAR(result.ac_interest, 999776.75, 1.0);
+  EXPECT_NEAR(result.sum_total, 10999776.75, 1.0);
+  EXPECT_NEAR(result.sum_tax, 120220.97749999944, 1.0);
+}
+
+TEST(Deposit, TestCalculation7) {
+  s21::DepositData data = {10000000, 12, 10, 7.5, 5, 1, 0,
+                           0, 0, QDate(2023, 1, 30), {}};
+  s21::ModelDeposit model;
+  model.setModel(data);
+  model.calculate();
+  s21::DepositData result = model.getResult();
+
+  EXPECT_NEAR(result.ac_interest, 999776.75, 1.0);
+  EXPECT_NEAR(result.sum_total, 10999776.75, 1.0);
+  EXPECT_NEAR(result.sum_tax, 120220.97749999944, 1.0);
 }

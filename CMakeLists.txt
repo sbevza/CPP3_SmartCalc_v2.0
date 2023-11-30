@@ -10,15 +10,15 @@ add_executable(CPP3_SmartCalc_v2_0_1
         src/controller/controller.h
         src/model/model.cc
         src/model/model.h
-        src/main.cc
-        src/view/deposit.h
-        src/view/credit.cc
+        src/model/model_deposit.cc
         src/model/model_credit.cc
         src/tests/check_run_tests.cc
         src/tests/check_s21_SmartCalc.cc
-        src/model/model_deposit.cc
-        src/view/mainwindow.cc
-        src/view/mainwindow.cc
+        #        src/main.cc
+        #        src/view/deposit.h
+        #        src/view/credit.cc
+#        src/view/mainwindow.cc
+#        src/view/mainwindow.cc
 )
 
 find_package(Qt6 COMPONENTS Core Widgets REQUIRED)

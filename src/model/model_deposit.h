@@ -15,9 +15,6 @@ struct ReplenishmentData {
 struct DepositData {
   double deposit_sum;
   double months;
-  double days;
-  std::tm begin_date;
-  std::tm end_date;
   double interest;
   double tax;
   int pay_freq_idx;
