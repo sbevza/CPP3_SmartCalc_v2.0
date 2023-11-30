@@ -1,7 +1,7 @@
 CC= gcc
-CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -I/usr/include/x86_64-linux-gnu/qt6
 STANDART= -std=c++17
-TESTFLAGS= -lgtest -lgtest_main -lstdc++ -lm
+TESTFLAGS= -lgtest -lgtest_main -lstdc++ -lm -lQtCore -lQtWidgets -I/usr/include/x86_64-linux-gnu/qt6
 TESTFILES= tests/*.cc model/model*.cc
 
 OS = $(shell uname)
@@ -18,6 +18,15 @@ endif
 
 all: install
 
+test_cmake:
+	mkdir -p build
+	cd build && cmake ../..
+	cd build && make
+
+tests: clean uninstall test_cmake
+	build/CPP3_SmartCalc_v2_0_1
+	rm -rf build/
+
 install:
 	mkdir -p build
 	qmake6 -o build/Makefile ./SmartCalc.pro
@@ -26,14 +35,11 @@ install:
 uninstall:
 	rm -rf build/
 
-tests: clean
-	$(CC) $(CFLAGS) $(STANDART) $(TESTFILES) -o test $(TESTFLAGS)
+gcov_report: clean uninstall test_cmake
+	cd build && ls && cp CPP3_SmartCalc_v2_0_1 ../test
+	cd ..
 	./test
-
-gcov_report: clean
-	$(CC) $(CFLAGS) --coverage $(STANDART) $(TESTFILES) -o test $(TESTFLAGS)  
-	./test
-	$(LCOV)	
+	$(LCOV)
 	genhtml -o report test.info
 	$(OPEN)
 

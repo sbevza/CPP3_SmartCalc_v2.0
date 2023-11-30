@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(src)
 
 add_executable(CPP3_SmartCalc_v2_0_1
-        src/controller/controller.cc
-        src/controller/controller.h
+#        src/controller/controller.cc
+#        src/controller/controller.h
         src/model/model.cc
         src/model/model.h
         src/model/model_deposit.cc
