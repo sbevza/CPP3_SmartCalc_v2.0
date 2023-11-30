@@ -872,7 +872,6 @@ QPushButton:pressed {
           <font>
            <family>Arial</family>
            <pointsize>12</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -916,7 +915,6 @@ QPushButton:pressed {
           <font>
            <family>Arial</family>
            <pointsize>13</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -927,6 +925,9 @@ QPushButton:pressed {
 	font-size: 13pt;
 	font-weight: 600;
 	margin-bottom: 4px;</string>
+         </property>
+         <property name="text">
+          <string>0</string>
          </property>
         </widget>
        </item>
@@ -1017,7 +1018,6 @@ QPushButton:pressed {
           <font>
            <family>Arial</family>
            <pointsize>13</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1037,7 +1037,6 @@ QPushButton:pressed {
           <font>
            <family>Arial</family>
            <pointsize>13</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1057,7 +1056,6 @@ QPushButton:pressed {
           <font>
            <family>Arial</family>
            <pointsize>12</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1082,7 +1080,6 @@ QPushButton:pressed {
           <font>
            <family>Arial</family>
            <pointsize>13</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1102,7 +1099,6 @@ QPushButton:pressed {
           <font>
            <family>Arial</family>
            <pointsize>13</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -1120,7 +1116,7 @@ QPushButton:pressed {
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>510</x>
