@@ -1,6 +1,8 @@
 #include "model_deposit.h"
-#include <qdatetime.h>
+
 #include <math.h>
+#include <qdatetime.h>
+
 #include <QDialog>
 
 namespace s21 {
@@ -26,43 +28,46 @@ void ModelDeposit::calculate() {
   int prev_year = current_date.year();
   while (current_date < end_date) {
     int days_in_year = QDate::isLeapYear(current_date.year()) ? 366 : 365;
-    double daily_interest = remaining_balance * (interest_rate / days_in_year) / 100.0;
+    double daily_interest =
+        remaining_balance * (interest_rate / days_in_year) / 100.0;
     period_interest += round(daily_interest * 100.0) / 100.0;
 
     if (current_date.year() != prev_year) {
-        if  (capitalization_freq != 4)
-          calculate_tax(accrued_interest - prev_accrued_interest);
+      if (capitalization_freq != 4)
+        calculate_tax(accrued_interest - prev_accrued_interest);
       prev_year = current_date.year();
       prev_accrued_interest += accrued_interest;
     }
 
-    if (capitalization_freq == 0) { // Каждый день
+    if (capitalization_freq == 0) {  // Каждый день
       if (data_.capitalization) remaining_balance += daily_interest;
       accrued_interest += period_interest;
       period_interest = 0;
-    } else if (capitalization_freq == 1) { // Раз в месяц
+    } else if (capitalization_freq == 1) {  // Раз в месяц
       if (current_date.day() == begin_date.day()) {
         if (data_.capitalization) remaining_balance += period_interest;
         accrued_interest += period_interest;
         period_interest = 0;
       }
-    } else if (capitalization_freq == 2) { // Раз в квартал
+    } else if (capitalization_freq == 2) {  // Раз в квартал
       if (current_date.day() == begin_date.day() &&
-          (current_date.month() == begin_date.month() || current_date.month() == (begin_date.month() + 3) % 12 ||
-              current_date.month() == (begin_date.month() + 6) % 12 ||
-              current_date.month() == (begin_date.month() + 9) % 12)) {
+          (current_date.month() == begin_date.month() ||
+           current_date.month() == (begin_date.month() + 3) % 12 ||
+           current_date.month() == (begin_date.month() + 6) % 12 ||
+           current_date.month() == (begin_date.month() + 9) % 12)) {
         if (data_.capitalization) remaining_balance += period_interest;
         accrued_interest += period_interest;
         period_interest = 0;
       }
-    } else if (capitalization_freq == 3) { // Раз в полгода
+    } else if (capitalization_freq == 3) {  // Раз в полгода
       if (current_date.day() == begin_date.day() &&
-          (current_date.month() == begin_date.month() || current_date.month() == (begin_date.month() + 6) % 12)) {
+          (current_date.month() == begin_date.month() ||
+           current_date.month() == (begin_date.month() + 6) % 12)) {
         if (data_.capitalization) remaining_balance += period_interest;
         accrued_interest += period_interest;
         period_interest = 0;
       }
-    } else if (capitalization_freq == 4) { // Раз в год
+    } else if (capitalization_freq == 4) {  // Раз в год
       if (current_date.day() == begin_date.day() &&
           current_date.month() == begin_date.month()) {
         if (data_.capitalization) remaining_balance += period_interest;
@@ -81,7 +86,7 @@ void ModelDeposit::calculate() {
 
     if (replenish_row < data_.table.size()) {
       while ((replenish_row < data_.table.size()) &&
-          (getReplenishmentDate(replenish_row) == current_date)) {
+             (getReplenishmentDate(replenish_row) == current_date)) {
         double replenishment_amount = getReplenishmentAmount(replenish_row);
         remaining_balance += replenishment_amount;
         period_interest += replenishment_amount;
@@ -117,11 +122,7 @@ void ModelDeposit::calculate_tax(double interest) {
   if (sum_tax > 0) data_.sum_tax += sum_tax;
 }
 
-void ModelDeposit::setModel(DepositData data) {
-  data_ = data;
-}
+void ModelDeposit::setModel(DepositData data) { data_ = data; }
 
-DepositData ModelDeposit::getResult() {
-  return data_;
-}
-}
+DepositData ModelDeposit::getResult() { return data_; }
+}  // namespace s21

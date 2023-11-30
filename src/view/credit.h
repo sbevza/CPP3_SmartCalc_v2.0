@@ -1,10 +1,12 @@
 #ifndef CREDIT_H
 #define CREDIT_H
 
-#include "controller/controller.h"
+#include <math.h>
+
 #include <QDialog>
 #include <QIntValidator>
-#include <math.h>
+
+#include "controller/controller.h"
 
 namespace Ui {
 class Credit;
@@ -28,7 +30,8 @@ class Credit : public QDialog {
   void s21_credit(s21::CreditData *data);
   double calculate_differentiated(double loan_amount, int months,
                                   double interest_rate, int month);
-  double calculate_annuity(double loan_amount, int months, double interest_rate);
+  double calculate_annuity(double loan_amount, int months,
+                           double interest_rate);
 };
 
 #endif  // CREDIT_H

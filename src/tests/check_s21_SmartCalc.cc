@@ -364,7 +364,8 @@ TEST(Calc, test_calc_40) {
 
 TEST(Calc, test_calc_41) {
   double x = 0.0003;
-  std::string input = std::string("(") + '\0' + ')';;
+  std::string input = std::string("(") + '\0' + ')';
+  ;
   double result;
   s21::Model m;
   m.s21_SmartCalc(input, x, result);
@@ -382,7 +383,9 @@ TEST(Calc, test_calc_42) {
 
 TEST(Calc, test_calc_43) {
   double x = 0.0003;
-  std::string input = "1234567890123456789012345678901234567890^1234567890123456789012345678901234567890";
+  std::string input =
+      "1234567890123456789012345678901234567890^"
+      "1234567890123456789012345678901234567890";
   double result;
   s21::Model m;
   m.s21_SmartCalc(input, x, result);
@@ -408,7 +411,8 @@ TEST(Calc, test_calc_45) {
 }
 
 TEST(Credit, test_calc_annuity) {
-  s21::CreditData data = {1000000, 12, 15, 0, 0, 0, 0, 0, 0}; // Инициализация структуры
+  s21::CreditData data = {1000000, 12, 15, 0, 0,
+                          0,       0,  0,  0};  // Инициализация структуры
   s21::ModelCredit model;
   model.setModel(data);
   model.calculate();
@@ -420,7 +424,8 @@ TEST(Credit, test_calc_annuity) {
 }
 
 TEST(Credit, test_calc_differentiated) {
-  s21::CreditData data = {1000000, 12, 15, 1, 0, 0, 0, 0, 0}; // Инициализация структуры
+  s21::CreditData data = {1000000, 12, 15, 1, 0,
+                          0,       0,  0,  0};  // Инициализация структуры
   s21::ModelCredit model;
   model.setModel(data);
   model.calculate();
@@ -434,11 +439,19 @@ TEST(Credit, test_calc_differentiated) {
 }
 
 TEST(Deposit, TestCalculation) {
-  s21::DepositData data = {1000000, 12, 10, 7.5, 0, 1, 0,
-                           0, 0, QDate(2023, 1, 1), {
-                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
-                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
-                           }};
+  s21::DepositData data = {
+      1000000,
+      12,
+      10,
+      7.5,
+      0,
+      1,
+      0,
+      0,
+      0,
+      QDate(2023, 1, 1),
+      {{QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+       {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}}};
   s21::ModelDeposit model;
   model.setModel(data);
   model.calculate();
@@ -450,11 +463,19 @@ TEST(Deposit, TestCalculation) {
 }
 
 TEST(Deposit, TestCalculation2) {
-  s21::DepositData data = {1000000, 12, 10, 7.5, 0, 0, 0,
-                           0, 0, QDate(2023, 1, 1), {
-                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
-                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
-                           }};
+  s21::DepositData data = {
+      1000000,
+      12,
+      10,
+      7.5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      QDate(2023, 1, 1),
+      {{QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+       {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}}};
   s21::ModelDeposit model;
   model.setModel(data);
   model.calculate();
@@ -466,11 +487,19 @@ TEST(Deposit, TestCalculation2) {
 }
 
 TEST(Deposit, TestCalculation3) {
-  s21::DepositData data = {1000000, 12, 10, 7.5, 2, 1, 0,
-                           0, 0, QDate(2023, 1, 1), {
-                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
-                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
-                           }};
+  s21::DepositData data = {
+      1000000,
+      12,
+      10,
+      7.5,
+      2,
+      1,
+      0,
+      0,
+      0,
+      QDate(2023, 1, 1),
+      {{QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+       {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}}};
   s21::ModelDeposit model;
   model.setModel(data);
   model.calculate();
@@ -482,11 +511,19 @@ TEST(Deposit, TestCalculation3) {
 }
 
 TEST(Deposit, TestCalculation4) {
-  s21::DepositData data = {1000000, 12, 10, 7.5, 3, 1, 0,
-                           0, 0, QDate(2023, 1, 1), {
-                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
-                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
-                           }};
+  s21::DepositData data = {
+      1000000,
+      12,
+      10,
+      7.5,
+      3,
+      1,
+      0,
+      0,
+      0,
+      QDate(2023, 1, 1),
+      {{QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+       {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}}};
   s21::ModelDeposit model;
   model.setModel(data);
   model.calculate();
@@ -498,11 +535,19 @@ TEST(Deposit, TestCalculation4) {
 }
 
 TEST(Deposit, TestCalculation5) {
-  s21::DepositData data = {1000000, 12, 10, 7.5, 1, 1, 0,
-                           0, 0, QDate(2023, 1, 1), {
-                               {QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
-                               {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}
-                           }};
+  s21::DepositData data = {
+      1000000,
+      12,
+      10,
+      7.5,
+      1,
+      1,
+      0,
+      0,
+      0,
+      QDate(2023, 1, 1),
+      {{QVariant(QDate(2023, 11, 30).toString("dd.MM.yyyy")), 10000.0},
+       {QVariant(QDate(2023, 12, 30).toString("dd.MM.yyyy")), -10000.0}}};
   s21::ModelDeposit model;
   model.setModel(data);
   model.calculate();
@@ -514,8 +559,8 @@ TEST(Deposit, TestCalculation5) {
 }
 
 TEST(Deposit, TestCalculation6) {
-  s21::DepositData data = {10000000, 12, 10, 7.5, 4, 1, 0,
-                           0, 0, QDate(2023, 1, 30), {}};
+  s21::DepositData data = {10000000,           12, 10, 7.5, 4, 1, 0, 0, 0,
+                           QDate(2023, 1, 30), {}};
   s21::ModelDeposit model;
   model.setModel(data);
   model.calculate();
@@ -527,8 +572,8 @@ TEST(Deposit, TestCalculation6) {
 }
 
 TEST(Deposit, TestCalculation7) {
-  s21::DepositData data = {10000000, 12, 10, 7.5, 5, 1, 0,
-                           0, 0, QDate(2023, 1, 30), {}};
+  s21::DepositData data = {10000000,           12, 10, 7.5, 5, 1, 0, 0, 0,
+                           QDate(2023, 1, 30), {}};
   s21::ModelDeposit model;
   model.setModel(data);
   model.calculate();

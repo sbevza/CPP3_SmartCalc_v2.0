@@ -24,7 +24,6 @@ void Model::convert_to_poland() {
   if (!error_) {
     error_ = parse();
   }
-
 }
 
 void Model::validate() {
@@ -47,19 +46,19 @@ void Model::validate() {
       str_valid_ += 't';
       i += 2;
     } else if (in_[i] == 'a' && in_[i + 1] == 'c' && in_[i + 2] == 'o' &&
-        in_[i + 3] == 's') {
+               in_[i + 3] == 's') {
       str_valid_ += 'o';
       i += 3;
     } else if (in_[i] == 'a' && in_[i + 1] == 's' && in_[i + 2] == 'i' &&
-        in_[i + 3] == 'n') {
+               in_[i + 3] == 'n') {
       str_valid_ += 'i';
       i += 3;
     } else if (in_[i] == 'a' && in_[i + 1] == 't' && in_[i + 2] == 'a' &&
-        in_[i + 3] == 'n') {
+               in_[i + 3] == 'n') {
       str_valid_ += 'a';
       i += 3;
     } else if (in_[i] == 's' && in_[i + 1] == 'q' && in_[i + 2] == 'r' &&
-        in_[i + 3] == 't') {
+               in_[i + 3] == 't') {
       str_valid_ += 'q';
       i += 3;
     } else if (in_[i] == 'l' && in_[i + 1] == 'n') {
@@ -81,9 +80,9 @@ void Model::validate() {
       str_valid_ += '0';
       str_valid_ += '+';
     } else if ((in_[i] >= 48 && in_[i] <= 57) &&
-        (in_[i + 1] == '(' || in_[i + 1] == 'a' || in_[i + 1] == 'c' ||
-            in_[i + 1] == 's' || in_[i + 1] == 't' || in_[i + 1] == 'l' ||
-            in_[i + 1] == 'x')) {
+               (in_[i + 1] == '(' || in_[i + 1] == 'a' || in_[i + 1] == 'c' ||
+                in_[i + 1] == 's' || in_[i + 1] == 't' || in_[i + 1] == 'l' ||
+                in_[i + 1] == 'x')) {
       str_valid_ += in_[i];
       str_valid_ += '*';
     } else if ((in_[i] >= 40 && in_[i] <= 57) || (in_[i] <= '^')) {
@@ -122,9 +121,10 @@ int Model::check_brackets() {
 int Model::check_tigenometry() {
   int err = 0;
   for (int i = 0; str_valid_[i] != '\0' && !err; i++) {
-    if ((str_valid_[i] == 's' || str_valid_[i] == 'c' || str_valid_[i] == 't' || str_valid_[i] == 'o' ||
-        str_valid_[i] == 'i' || str_valid_[i] == 'a' || str_valid_[i] == 'q' || str_valid_[i] == 'l' ||
-        str_valid_[i] == 'g') &&
+    if ((str_valid_[i] == 's' || str_valid_[i] == 'c' || str_valid_[i] == 't' ||
+         str_valid_[i] == 'o' || str_valid_[i] == 'i' || str_valid_[i] == 'a' ||
+         str_valid_[i] == 'q' || str_valid_[i] == 'l' ||
+         str_valid_[i] == 'g') &&
         str_valid_[i + 1] != '(')
       err = 1;
   }
@@ -154,11 +154,13 @@ int Model::parse() {
       }
       st.pop();
     } else if (priorites(str_valid_[i]) == 2 || priorites(str_valid_[i]) == 3 ||
-        priorites(str_valid_[i]) == 5) {
+               priorites(str_valid_[i]) == 5) {
       if ((st.empty() ? 0 : priorites(st.top())) < priorites(str_valid_[i])) {
         st.push(str_valid_[i]);
-      } else if ((st.empty() ? 0 :priorites(st.top())) >= priorites(str_valid_[i])) {
-        while ((st.empty() ? 0 : priorites(st.top())) >= priorites(str_valid_[i])) {
+      } else if ((st.empty() ? 0 : priorites(st.top())) >=
+                 priorites(str_valid_[i])) {
+        while ((st.empty() ? 0 : priorites(st.top())) >=
+               priorites(str_valid_[i])) {
           out_ += st.top();
           st.pop();
         }
@@ -237,19 +239,23 @@ int Model::execute(char c, std::vector<double> &st, int &pointer) {
   err = check_pointer(c, pointer);
   if (!err) {
     switch (c) {
-      case '+':st[pointer - 2] += st[pointer - 1];
+      case '+':
+        st[pointer - 2] += st[pointer - 1];
         st.pop_back();
         (pointer)--;
         break;
-      case '-':st[pointer - 2] -= st[pointer - 1];
+      case '-':
+        st[pointer - 2] -= st[pointer - 1];
         st.pop_back();
         (pointer)--;
         break;
-      case '*':st[pointer - 2] *= st[pointer - 1];
+      case '*':
+        st[pointer - 2] *= st[pointer - 1];
         st.pop_back();
         (pointer)--;
         break;
-      case '/':err = st[pointer - 1] == 0 ? 2 : 0;
+      case '/':
+        err = st[pointer - 1] == 0 ? 2 : 0;
         if (!err) {
           st[pointer - 2] /= st[pointer - 1];
           st.pop_back();
@@ -258,29 +264,40 @@ int Model::execute(char c, std::vector<double> &st, int &pointer) {
           error_ = err;
         }
         break;
-      case 'm':st[pointer - 2] = fmod(st[pointer - 2], st[pointer - 1]);
+      case 'm':
+        st[pointer - 2] = fmod(st[pointer - 2], st[pointer - 1]);
         st.pop_back();
         (pointer)--;
         break;
-      case 's':st[pointer - 1] = sin(st[pointer - 1]);
+      case 's':
+        st[pointer - 1] = sin(st[pointer - 1]);
         break;
-      case 'c':st[pointer - 1] = cos(st[pointer - 1]);
+      case 'c':
+        st[pointer - 1] = cos(st[pointer - 1]);
         break;
-      case 't':st[pointer - 1] = tan(st[pointer - 1]);
+      case 't':
+        st[pointer - 1] = tan(st[pointer - 1]);
         break;
-      case 'o':st[pointer - 1] = acos(st[pointer - 1]);
+      case 'o':
+        st[pointer - 1] = acos(st[pointer - 1]);
         break;
-      case 'i':st[pointer - 1] = asin(st[pointer - 1]);
+      case 'i':
+        st[pointer - 1] = asin(st[pointer - 1]);
         break;
-      case 'a':st[pointer - 1] = atan(st[pointer - 1]);
+      case 'a':
+        st[pointer - 1] = atan(st[pointer - 1]);
         break;
-      case 'q':st[pointer - 1] = sqrt(st[pointer - 1]);
+      case 'q':
+        st[pointer - 1] = sqrt(st[pointer - 1]);
         break;
-      case 'l':st[pointer - 1] = log(st[pointer - 1]);
+      case 'l':
+        st[pointer - 1] = log(st[pointer - 1]);
         break;
-      case 'g':st[pointer - 1] = log10(st[pointer - 1]);
+      case 'g':
+        st[pointer - 1] = log10(st[pointer - 1]);
         break;
-      case '^':st[pointer - 2] = pow(st[pointer - 2], st[pointer - 1]);
+      case '^':
+        st[pointer - 2] = pow(st[pointer - 2], st[pointer - 1]);
         st.pop_back();
         (pointer)--;
         break;
@@ -293,12 +310,12 @@ int Model::check_pointer(char operation, int pointer) {
   int err = 0;
   if ((pointer < 2) &&
       (operation == '+' || operation == '-' || operation == '*' ||
-          operation == '/' || operation == 'm' || operation == '^'))
+       operation == '/' || operation == 'm' || operation == '^'))
     err = 1;
   else if ((pointer < 1) &&
-      (operation == 's' || operation == 'c' || operation == 't' ||
-          operation == 'o' || operation == 'i' || operation == 'a' ||
-          operation == 'q' || operation == 'l' || operation == 'g'))
+           (operation == 's' || operation == 'c' || operation == 't' ||
+            operation == 'o' || operation == 'i' || operation == 'a' ||
+            operation == 'q' || operation == 'l' || operation == 'g'))
     err = 1;
 
   return err;
@@ -322,20 +339,16 @@ void Model::setModel(const std::string &in, double x) {
 }
 
 void Model::reset() {
-    in_.clear();
-    out_.clear();
-    str_valid_.clear();
-    x_ = 0;
-    error_ = 0;
-    result_ = 0;
+  in_.clear();
+  out_.clear();
+  str_valid_.clear();
+  x_ = 0;
+  error_ = 0;
+  result_ = 0;
 }
 
-int Model::getErrorStatus() {
-  return error_;
-}
+int Model::getErrorStatus() { return error_; }
 
-double Model::getResult() {
-  return result_;
-}
+double Model::getResult() { return result_; }
 
-};
+};  // namespace s21

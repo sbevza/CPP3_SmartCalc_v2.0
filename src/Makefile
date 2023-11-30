@@ -42,6 +42,7 @@ gcov_report: clean uninstall test_cmake
 	$(LCOV)
 	genhtml -o report test.info
 	$(OPEN)
+	rm -rf build/
 
 clang:
 	find . -type f \( -name '*.h' -o -name '*.cc' \) -print0 | xargs -0 clang-format -n -style=Google
@@ -56,5 +57,11 @@ clean:
 dvi:
 	open readme.txt
 
-valgrind: clean tests
-	valgrind --leak-check=summary ./test  >> val_result.log 2>&1
+valgrind: clean uninstall test_cmake
+	cd build && ls && cp CPP3_SmartCalc_v2_0_1 ../test
+	cd ..
+	valgrind --leak-check=full ./test  >> val_result.log 2>&1
+	rm -rf build/
+
+dist:
+	tar -czf smartcalc_v2-0.tar.gz Makefile readme.txt SmartCalc.pro main.cc controller/* model/* tests/* view/*

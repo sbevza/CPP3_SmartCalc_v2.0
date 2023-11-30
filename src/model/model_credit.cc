@@ -1,4 +1,5 @@
 #include "model_credit.h"
+
 #include <cmath>
 
 namespace s21 {
@@ -26,7 +27,8 @@ void ModelCredit::calculate() {
   }
 }
 
-double ModelCredit::calculate_annuity(double loan_amount, int months, double interest_rate) {
+double ModelCredit::calculate_annuity(double loan_amount, int months,
+                                      double interest_rate) {
   double monthly_interest_rate = interest_rate / 1200.0;
   double annuity_factor =
       monthly_interest_rate / (1.0 - pow(1.0 + monthly_interest_rate, -months));
@@ -34,19 +36,15 @@ double ModelCredit::calculate_annuity(double loan_amount, int months, double int
 }
 
 double ModelCredit::calculate_differentiated(double loan_amount, int months,
-                                double interest_rate, int month) {
+                                             double interest_rate, int month) {
   double monthly_interest_rate = interest_rate / 1200.0;
   double base = loan_amount / months;
   double interest = (loan_amount - base * (month - 1)) * monthly_interest_rate;
   return base + interest;
 }
 
-void ModelCredit::setModel(CreditData data){
-    data_ = data;
-}
+void ModelCredit::setModel(CreditData data) { data_ = data; }
 
-CreditData ModelCredit::getResult() {
-    return data_;
-}
+CreditData ModelCredit::getResult() { return data_; }
 
-}
+}  // namespace s21

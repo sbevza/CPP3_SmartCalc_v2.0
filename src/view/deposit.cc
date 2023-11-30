@@ -1,15 +1,15 @@
 #include "deposit.h"
+
 #include "ui_deposit.h"
 
-Deposit::Deposit(s21::Controller *controller, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Deposit),
-    controller(controller) {
+Deposit::Deposit(s21::Controller *controller, QWidget *parent)
+    : QDialog(parent), ui(new Ui::Deposit), controller(controller) {
   ui->setupUi(this);
   ui->de_begin_date->setDate(QDate::currentDate());
 
   QLocale locale(QLocale::C);
-  QDoubleValidator *depositSumValidator = new QDoubleValidator(0.0, 1000000000.0, 2, this);
+  QDoubleValidator *depositSumValidator =
+      new QDoubleValidator(0.0, 1000000000.0, 2, this);
   depositSumValidator->setLocale(locale);
   depositSumValidator->setNotation(QDoubleValidator::StandardNotation);
   ui->ln_deposit_sum->setValidator(depositSumValidator);
@@ -17,27 +17,26 @@ Deposit::Deposit(s21::Controller *controller, QWidget *parent) :
   QIntValidator *timeValidator = new QIntValidator(0, 100, this);
   ui->ln_time->setValidator(timeValidator);
 
-  QDoubleValidator *interestValidator = new QDoubleValidator(0.0, 100.0, 2, this);
+  QDoubleValidator *interestValidator =
+      new QDoubleValidator(0.0, 100.0, 2, this);
   interestValidator->setLocale(locale);
   ui->ln_interest->setValidator(interestValidator);
   ui->ln_tax->setValidator(interestValidator);
 }
 
-Deposit::~Deposit() {
-  delete ui;
-}
+Deposit::~Deposit() { delete ui; }
 
 std::vector<s21::ReplenishmentData> Deposit::extractData() {
-    std::vector<s21::ReplenishmentData> data;
-    int rowCount = ui->tb_replenish_withdraw->rowCount();
+  std::vector<s21::ReplenishmentData> data;
+  int rowCount = ui->tb_replenish_withdraw->rowCount();
 
-    for (int row = 0; row < rowCount; ++row) {
-        s21::ReplenishmentData entry;
-        entry.date = ui->tb_replenish_withdraw->item(row, 0)->data(Qt::DisplayRole);
-        entry.amount = ui->tb_replenish_withdraw->item(row, 1)->text().toDouble();
-        data.push_back(entry);
-    }
-    return data;
+  for (int row = 0; row < rowCount; ++row) {
+    s21::ReplenishmentData entry;
+    entry.date = ui->tb_replenish_withdraw->item(row, 0)->data(Qt::DisplayRole);
+    entry.amount = ui->tb_replenish_withdraw->item(row, 1)->text().toDouble();
+    data.push_back(entry);
+  }
+  return data;
 }
 
 void Deposit::setData() {
@@ -55,18 +54,18 @@ void Deposit::setData() {
   data.tax = ui->ln_tax->text().toDouble();
   data.pay_freq_idx = ui->cmb_pay_freq->currentIndex();
   data.capitalization = ui->cb_capitalization->isChecked();
-//  int months = 12;
+  //  int months = 12;
 
   data.current_date = ui->de_begin_date->date();
   QVariant itemData = data.current_date;
   QString dateString = itemData.toString();
-//  QDate begin_date = QDate::fromString(dateString, "yyyy-MM-dd");
-//  data.begin_date.tm_year = begin_date.year() - 1900;
-//  data.begin_date.tm_mon = begin_date.month() - 1;
-//  data.begin_date.tm_mday = begin_date.day();
+  //  QDate begin_date = QDate::fromString(dateString, "yyyy-MM-dd");
+  //  data.begin_date.tm_year = begin_date.year() - 1900;
+  //  data.begin_date.tm_mon = begin_date.month() - 1;
+  //  data.begin_date.tm_mday = begin_date.day();
 
-//  QDate end_date = begin_date.addMonths(months);
-//  data.days = begin_date.daysTo(end_date);
+  //  QDate end_date = begin_date.addMonths(months);
+  //  data.days = begin_date.daysTo(end_date);
   data.sum_tax = 0;
 
   controller->setDepositData(data);
@@ -79,10 +78,10 @@ void Deposit::get_data() {
   ui->lb_total_res->setText(QString::number(model.sum_total, 'f', 2));
 }
 
-//void Deposit::s21_deposit(s21::DepositData *model) {
-//  model->ac_interest = 0;
-//  model->sum_tax = 0;
-//  model->sum_total = model->deposit_sum;
+// void Deposit::s21_deposit(s21::DepositData *model) {
+//   model->ac_interest = 0;
+//   model->sum_tax = 0;
+//   model->sum_total = model->deposit_sum;
 
 //  double deposit_sum = ui->ln_deposit_sum->text().toDouble();
 //  double interest_rate = ui->ln_interest->text().toDouble();
@@ -100,8 +99,8 @@ void Deposit::get_data() {
 //  int prev_year = current_date.year();
 //  while (current_date < end_date) {
 //    int days_in_year = QDate::isLeapYear(current_date.year()) ? 366 : 365;
-//    double daily_interest = remaining_balance * (interest_rate / days_in_year) / 100.0;
-//    period_interest += round(daily_interest * 100.0) / 100.0;
+//    double daily_interest = remaining_balance * (interest_rate / days_in_year)
+//    / 100.0; period_interest += round(daily_interest * 100.0) / 100.0;
 
 //    if (current_date.year() != prev_year) {
 //      calculate_tax(model, accrued_interest - prev_accrued_interest);
@@ -121,7 +120,8 @@ void Deposit::get_data() {
 //      }
 //    } else if (capitalization_freq == 2) { // Раз в квартал
 //      if (current_date.day() == begin_date.day() &&
-//          (current_date.month() == begin_date.month() || current_date.month() == (begin_date.month() + 3) % 12 ||
+//          (current_date.month() == begin_date.month() || current_date.month()
+//          == (begin_date.month() + 3) % 12 ||
 //              current_date.month() == (begin_date.month() + 6) % 12 ||
 //              current_date.month() == (begin_date.month() + 9) % 12)) {
 //        if (model->capitalization) remaining_balance += period_interest;
@@ -130,13 +130,15 @@ void Deposit::get_data() {
 //      }
 //    } else if (capitalization_freq == 3) { // Раз в полгода
 //      if (current_date.day() == begin_date.day() &&
-//          (current_date.month() == begin_date.month() || current_date.month() == (begin_date.month() + 6) % 12)) {
+//          (current_date.month() == begin_date.month() || current_date.month()
+//          == (begin_date.month() + 6) % 12)) {
 //        if (model->capitalization) remaining_balance += period_interest;
 //        accrued_interest += period_interest;
 //        period_interest = 0;
 //      }
 //    } else if (capitalization_freq == 4) { // Раз в год
-//      if (current_date.day() == begin_date.day() && current_date.month() == begin_date.month()) {
+//      if (current_date.day() == begin_date.day() && current_date.month() ==
+//      begin_date.month()) {
 //        if (model->capitalization) remaining_balance += period_interest;
 //        accrued_interest += period_interest;
 //        period_interest = 0;
@@ -192,4 +194,3 @@ void Deposit::on_bt_plus_clicked() {
 void Deposit::on_pushButton_Additions_minus_clicked() {
   ui->tb_replenish_withdraw->removeRow(ui->tb_replenish_withdraw->currentRow());
 }
-

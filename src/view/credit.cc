@@ -1,14 +1,14 @@
 #include "credit.h"
+
 #include "ui_credit.h"
 
-Credit::Credit(s21::Controller *controller, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Credit),
-    controller(controller) {
+Credit::Credit(s21::Controller *controller, QWidget *parent)
+    : QDialog(parent), ui(new Ui::Credit), controller(controller) {
   ui->setupUi(this);
 
   QLocale locale(QLocale::C);
-  QDoubleValidator *creditSumValidator = new QDoubleValidator(0.0, 1000000000.0, 2, this);
+  QDoubleValidator *creditSumValidator =
+      new QDoubleValidator(0.0, 1000000000.0, 2, this);
   creditSumValidator->setLocale(locale);
   creditSumValidator->setNotation(QDoubleValidator::StandardNotation);
   ui->ln_credit_sum->setValidator(creditSumValidator);
@@ -16,15 +16,13 @@ Credit::Credit(s21::Controller *controller, QWidget *parent) :
   QIntValidator *timeValidator = new QIntValidator(0, 100, this);
   ui->ln_time->setValidator(timeValidator);
 
-  QDoubleValidator *interestValidator = new QDoubleValidator(0.0, 100.0, 2, this);
+  QDoubleValidator *interestValidator =
+      new QDoubleValidator(0.0, 100.0, 2, this);
   interestValidator->setLocale(locale);
   ui->ln_interest->setValidator(interestValidator);
-
 }
 
-Credit::~Credit() {
-  delete ui;
-}
+Credit::~Credit() { delete ui; }
 
 void Credit::set_data() {
   s21::CreditData data;
@@ -50,9 +48,11 @@ void Credit::get_data() {
   s21::CreditData data = controller->getCreditData();
   if (data.type_idx) {
     ui->lb_monthly_payment_res->setText(
-        QString::number(data.payment_from, 'f', 2) + " ... " + QString::number(data.payment_to, 'f', 2));
+        QString::number(data.payment_from, 'f', 2) + " ... " +
+        QString::number(data.payment_to, 'f', 2));
   } else {
-    ui->lb_monthly_payment_res->setText(QString::number(data.monthly_payment, 'f', 2));
+    ui->lb_monthly_payment_res->setText(
+        QString::number(data.monthly_payment, 'f', 2));
   }
 
   ui->lb_overpayment_res->setText(QString::number(data.overpay, 'f', 2));
@@ -64,4 +64,3 @@ void Credit::on_pushButton_clicked() {
   controller->calculateCredit();
   get_data();
 }
-

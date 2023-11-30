@@ -2,8 +2,10 @@
 #define DEPOSIT_H
 
 #include <math.h>
-#include <QDialog>
 #include <qtablewidget.h>
+
+#include <QDialog>
+
 #include "controller/controller.h"
 
 namespace Ui {

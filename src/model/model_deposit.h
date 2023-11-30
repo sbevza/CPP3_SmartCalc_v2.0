@@ -2,14 +2,15 @@
 #define MODEL_DEPOSIT_H
 
 #include <qdatetime.h>
-#include <ctime>
+
 #include <QDialog>
+#include <ctime>
 
 namespace s21 {
 
 struct ReplenishmentData {
-    QVariant date;
-    double amount;
+  QVariant date;
+  double amount;
 };
 
 struct DepositData {
@@ -27,19 +28,18 @@ struct DepositData {
 };
 
 class ModelDeposit {
-public:
-    void setModel(DepositData data);
-    void calculate();
-    DepositData getResult();
+ public:
+  void setModel(DepositData data);
+  void calculate();
+  DepositData getResult();
 
-private:
-    DepositData data_;
-    void calculate_tax(double interest);
-    QDate getReplenishmentDate(int row);
-    double getReplenishmentAmount(int row);
-
+ private:
+  DepositData data_;
+  void calculate_tax(double interest);
+  QDate getReplenishmentDate(int row);
+  double getReplenishmentAmount(int row);
 };
 
-}
+}  // namespace s21
 
-#endif // MODEL_DEPOSIT_H
+#endif  // MODEL_DEPOSIT_H

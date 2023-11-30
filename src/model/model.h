@@ -1,12 +1,12 @@
 #ifndef C7_SMARTCALC_V1_0_0_S21_SMARTCALC_HPP
 #define C7_SMARTCALC_V1_0_0_S21_SMARTCALC_HPP
 
+#include <cmath>
 #include <ctime>
+#include <stack>
+#include <stdexcept>
 #include <string>
 #include <vector>
-#include <stack>
-#include <cmath>
-#include <stdexcept>
 
 namespace s21 {
 
@@ -40,6 +40,6 @@ class Model {
   int check_pointer(char operation, int pointer);
 };
 
-} // namespace s21
+}  // namespace s21
 
 #endif  // C7_SMARTCALC_V1_0_0_S21_SMARTCALC_HPP
